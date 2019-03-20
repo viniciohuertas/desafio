@@ -1,7 +1,6 @@
 package pe.intercorpretail.desafio.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -56,6 +57,7 @@ public class Cliente implements Serializable {
     
     @Column(name = "fechanacimiento", nullable = false)
     @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
 	private Date fechanacimiento;
     
     public Cliente() {

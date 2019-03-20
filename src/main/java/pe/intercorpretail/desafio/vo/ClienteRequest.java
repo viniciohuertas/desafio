@@ -3,6 +3,8 @@ package pe.intercorpretail.desafio.vo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -32,11 +34,12 @@ public class ClienteRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@NotBlank(message = "Debe ingresar su nombre")
+	@NotBlank(message = "no debe estar vacío")
     private String nombre;
-	@NotBlank(message = "Debe ingresar su apellido")
+	@NotBlank(message = "no debe estar vacío")
     private String apellido;
 	@JsonFormat(pattern="yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date fechanacimiento;
 
 }
