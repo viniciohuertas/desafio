@@ -7,7 +7,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import lombok.Data;
 
@@ -38,8 +39,9 @@ public class ClienteRequest implements Serializable {
     private String nombre;
 	@NotBlank(message = "no debe estar vacío")
     private String apellido;
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(iso = ISO.DATE)
 	@Temporal(TemporalType.DATE)
+	@NotBlank(message = "no debe estar vacío")
 	private Date fechanacimiento;
 
 }
