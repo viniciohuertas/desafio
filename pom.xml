@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>pe.intercorpretail</groupId>
 	<artifactId>desafio</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>desafio</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -61,6 +61,12 @@
 		    <version>2.9.2</version>
 		</dependency>
 		<!-- /Swagger -->
+		<!-- Devtools -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<!-- /Devtools -->				
 	</dependencies>
 
 	<build>

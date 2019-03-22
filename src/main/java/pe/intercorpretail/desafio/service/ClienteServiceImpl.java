@@ -111,4 +111,9 @@ public class ClienteServiceImpl implements IClienteService {
 		return Utilitarios.sumarAños(fechaNacimiento, AppConstants.ESPERANZA_VIDA_CONTINENTE);
 	}
 
+	@Override
+	public void limpiarDBClientes() {
+		clienteDao.deleteAll();
+	}
+
 }

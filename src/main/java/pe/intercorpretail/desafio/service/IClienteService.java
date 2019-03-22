@@ -26,4 +26,5 @@ public interface IClienteService {
 	public ClienteResponse creaCliente(ClienteRequest clienteReq);
 	public KpiResponse kpiDeClientes();
 	public List<ClienteResponse> listClientes();
+	public void limpiarDBClientes();
 }

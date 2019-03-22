@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -83,6 +84,7 @@ public class ClienteRestController {
 		}
 		if (clienteResponse != null) {
 			response.put("mensaje", "El cliente se creo con éxito");
+			response.put("Cliente", clienteResponse.getNombre()+" "+clienteResponse.getApellido());
 			httpStatus = HttpStatus.CREATED;
 		}
 		else {
@@ -135,17 +137,42 @@ public class ClienteRestController {
 			clientes = clienteService.listClientes();
 		} catch (DataAccessException e) {
 			log.error(e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
+			response.put("mensaje", "No se encontraron resultados en la BDD.");
+			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		if (clientes != null && clientes.size() > 0) {
+			response.put("mensaje", "Consulta exitosa");
+			response.put("Clientes", clientes);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		}else {
+			response.put("mensaje","No se encontraron resultados en la BDD.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	/***
+	 * Metodo que permite limpiar la DB de clientes
+	 * @return Retorno un mensaje de confirmación, o el error correspondiente
+	 */
+	@DeleteMapping("/limpiarDBClientes")
+	@ApiOperation(value = "Permite limpiar la DB de clientes", notes = "Retorno un mensaje de confirmación, o el error correspondiente")
+	@ApiResponses(value = {@ApiResponse(code=201,message="Consulta correcta"),
+			@ApiResponse(code=404, message = "Resultados no encontrados")})
+	public ResponseEntity<?> limpiarDBClientes(){
+		response = new HashMap<>();
+		try {
+			clienteService.limpiarDBClientes();
+		} catch (DataAccessException e) {
+			log.error(e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
 			response.put("mensaje", "Error al realizar la consulta en la BDD");
 			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		if (clientes != null) {
-			return new ResponseEntity<List<ClienteResponse>>(clientes, HttpStatus.OK);
-		}else {
-			response.put("mensaje","No se encontraron resultados en la BDD.");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-		}
+		response.put("mensaje","Limpieza de DB realizada con éxito");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 
 }

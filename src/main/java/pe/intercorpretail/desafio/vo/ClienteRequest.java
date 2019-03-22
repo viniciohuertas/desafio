@@ -41,7 +41,7 @@ public class ClienteRequest implements Serializable {
     private String apellido;
 	@DateTimeFormat(iso = ISO.DATE)
 	@Temporal(TemporalType.DATE)
-	@NotBlank(message = "no debe estar vacío")
+//	@NotBlank(message = "no debe estar vacío")
 	private Date fechanacimiento;
 
 }

@@ -45,7 +45,7 @@ public class Cliente implements Serializable {
     private Long id;
 	
 	@NotBlank
-    @Column(name = "nombre", nullable = false)
+    @Column(name = "nombre", nullable = true)
     private String nombre;
  
 	@NotBlank
@@ -55,7 +55,7 @@ public class Cliente implements Serializable {
     @Column(name = "edad")
     private Integer edad;
     
-    @Column(name = "fechanacimiento", nullable = false)
+    @Column(name = "fechanacimiento", nullable = true)
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd")
 	private Date fechanacimiento;
